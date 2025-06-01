@@ -1,4 +1,4 @@
-package it.marketplace.microservices.common.validation;
+package it.marketplace.microservices.config.validation;
 
 
 import it.marketplace.microservices.common.resource.UserResource;

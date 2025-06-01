@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Product Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/product.css}" />
+</head>
+<body>
+
+<div class="button-group">
+    <button type="button" id="btn-create" onclick="showForm('create')">Create</button>
+    <button type="button" id="btn-update" onclick="showForm('update')">Update</button>
+    <button type="button" id="btn-delete" onclick="showForm('delete')">Delete</button>
+</div>
+
+<form id="productForm" class="form-container">
+    <h3 id="formTitle">Create Product</h3>
+
+    <!-- Input per Product Code (visibile solo per CREATE) -->
+    <input type="text" id="productCodeInput" name="productCode" placeholder="Product Code" />
+
+    <!-- Select per Update/Delete (nascosto per CREATE) -->
+    <select id="productCodeSelect" name="productCode" style="display: none;">
+        <option value="">-- Select Product Code --</option>
+    </select>
+
+    <!-- Campi comuni per Update/Create (disabilitati per DELETE) -->
+    <input type="text" id="name" name="name" placeholder="Name" />
+    <input type="text" id="description" name="description" placeholder="Description" />
+    <input type="number" id="price" name="price" step="any" placeholder="Price" />
+    <input type="number" id="supply" name="supply" step="any" placeholder="Supply" />
+    <select id="category" name="category">
+        <option value="">Select category</option>
+        <option value="FOOD">FOOD</option>
+        <option value="ELECTRONICS">ELECTRONICS</option>
+        <option value="TOYS">TOYS</option>
+    </select>
+
+    <button type="submit">Submit</button>
+
+    <div id="productMessage"></div>
+</form>
+
+<script th:src="@{/js/product.js}"></script>
+</body>
+</html>

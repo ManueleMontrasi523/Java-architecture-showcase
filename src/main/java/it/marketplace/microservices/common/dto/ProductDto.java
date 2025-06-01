@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,7 +18,7 @@ public class ProductDto {
     private String name;
     private String description;
     private double PRICE;
-    private String supply;
+    private BigDecimal supply;
     private CategoryEnum category;
 
     private LocalDateTime creationDate;

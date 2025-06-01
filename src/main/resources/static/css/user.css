@@ -1,0 +1,81 @@
+body {
+    background: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.button-group {
+    margin-bottom: 20px;
+}
+
+.button-group button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    min-width: 90px;
+}
+
+.button-group button:hover:not(.active) {
+    background-color: #1f6391;
+}
+
+.button-group button.active {
+    background-color: #f39c12;
+    color: #000;
+}
+
+.form-container {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button[type="submit"]:hover {
+    background-color: #1f6391;
+}

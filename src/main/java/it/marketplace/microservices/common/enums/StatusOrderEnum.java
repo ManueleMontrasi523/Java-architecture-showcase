@@ -4,8 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum StatusOrderEnum {
-    CREATED,
     CANCELLED,
+    CREATED,
+    PROCESSING,
     PENDING,
     PAID,
 }

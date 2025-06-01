@@ -2,22 +2,25 @@ package it.marketplace.microservices.service;
 
 import it.marketplace.microservices.common.dto.UserDto;
 import it.marketplace.microservices.common.enums.StatusUserEnum;
-import it.marketplace.microservices.common.exception.UserServiceException;
+import it.marketplace.microservices.config.exception.ServiceException;
+import it.marketplace.microservices.database.entity.UserEntity;
 
 import java.util.List;
 
 public interface UserService {
 
-    void save(UserDto dto) throws UserServiceException;
+    void save(UserDto dto) throws ServiceException;
 
-    UserDto findByEmail(String username) throws UserServiceException;
+    UserDto findByEmail(String email) throws ServiceException;
 
-    List<UserDto> findAll() throws UserServiceException;
+    UserEntity findByEmailEntity(String email) throws ServiceException;
 
-    void update(UserDto dto) throws UserServiceException;
+    List<UserDto> findAll(StatusUserEnum status) throws ServiceException;
 
-    void deleteByEmail(String username) throws UserServiceException;
+    void update(UserDto dto) throws ServiceException;
 
-    void statusByEmail(String username, StatusUserEnum status) throws UserServiceException;
+    void deleteByEmail(String email) throws ServiceException;
+
+    void statusByEmail(String email, StatusUserEnum status) throws ServiceException;
 
 }

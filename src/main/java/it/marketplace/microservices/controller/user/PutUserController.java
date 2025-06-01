@@ -1,30 +1,41 @@
 package it.marketplace.microservices.controller.user;
 
-import it.marketplace.microservices.common.exception.UserServiceException;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import it.marketplace.microservices.config.exception.ServiceException;
 import it.marketplace.microservices.common.resource.UserResource;
+import it.marketplace.microservices.config.validation.UserValidator;
 import it.marketplace.microservices.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
-import static it.marketplace.microservices.common.mapper.UserMapper.toDto;
+import java.util.Map;
+
+import static it.marketplace.microservices.config.mapper.UserMapper.toDto;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name = "User API", description = "User management")
 public class PutUserController {
 
     @Autowired
-    private UserService userService;
+    private UserValidator validator;
 
-    @PostMapping("/update")
-    public ResponseEntity<String> update(@Valid @RequestBody UserResource userResource) throws UserServiceException {
-        userService.update(toDto(userResource));
-        return ok().body("User updated!");
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(validator);
+    }
+
+    @Autowired
+    private UserService service;
+
+    @PutMapping("/update")
+    public ResponseEntity<Map<String, String>> update(@Valid @RequestBody UserResource userResource) throws ServiceException {
+        service.update(toDto(userResource));
+        return ok().body(Map.of("message", "User updated!"));
     }
 
 }

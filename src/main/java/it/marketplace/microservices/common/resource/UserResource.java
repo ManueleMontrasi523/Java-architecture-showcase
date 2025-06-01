@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserResource {
 
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private Long id;
+
     private String name;
     private String lastname;
     private String email;

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,16 +21,16 @@ public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
-    @Column(name = "ID")
+    @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "LASTNAME")
+    @Column(name = "LASTNAME", nullable = false)
     private String lastname;
 
-    @Column(name = "EMAIL", unique = true)
+    @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
 
     @Column(name = "RESIDENCE_ADDRESS")
@@ -39,17 +40,19 @@ public class UserEntity implements Serializable {
     private String residenceCity;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE")
+    @Column(name = "ROLE", nullable = false)
     private RoleEnum role;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
+    @Column(name = "STATUS", nullable = false)
     private StatusUserEnum status;
 
-    @Column(name = "TMS_SUBSCRIPTION_DATE")
+    @DateTimeFormat
+    @Column(name = "TMS_SUBSCRIPTION_DATE", nullable = false)
     private LocalDateTime tmsSubscriptionDate;
 
-    @Column(name = "TMS_UPDATE")
+    @DateTimeFormat
+    @Column(name = "TMS_UPDATE", nullable = false)
     private LocalDateTime tmsUpdate;
 
 }

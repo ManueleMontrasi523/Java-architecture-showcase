@@ -1,7 +1,6 @@
 package it.marketplace.microservices.common.resource;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import it.marketplace.microservices.common.enums.CategoryEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,19 +11,17 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductResource {
+public class ProductOrderResource {
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private Long id;
-
+    private String orderCode;
     private String productCode;
-    private String name;
-    private String description;
-    private double price;
-    private BigDecimal supply;
-    private CategoryEnum category;
+    private BigDecimal quantity;
+    private Double unitPrice;
+    private Double total;
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime creationDate;
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private LocalDateTime tmsUpdate;
 
 }

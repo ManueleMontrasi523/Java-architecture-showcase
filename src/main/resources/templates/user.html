@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/user.css}" />
+</head>
+<body>
+
+<div class="button-group">
+    <button type="button" id="btn-create" onclick="showForm('create')">Create</button>
+    <button type="button" id="btn-update" onclick="showForm('update')">Update</button>
+    <button type="button" id="btn-status" onclick="showForm('status')">Status</button>
+    <button type="button" id="btn-delete" onclick="showForm('delete')">Delete</button>
+</div>
+
+<form id="userForm" class="form-container">
+    <h3 id="formTitle">Create User</h3>
+
+    <input type="text" id="emailInput" name="email" placeholder="E-Mail" />
+
+    <select id="emailSelect" name="email" style="display: none;">
+        <option value="">-- Select E-Mail --</option>
+    </select>
+
+    <select id="status" name="status">
+        <option value="">Select status</option>
+        <option value="ACTIVE">ACTIVE</option>
+        <option value="DISABLED">DISABLED</option>
+    </select>
+
+    <input type="text" id="name" name="name" placeholder="Name" /><br>
+    <input type="text" id="lastname" name="lastname" placeholder="Lastname" /><br>
+    <input type="text" id="residenceAddress" name="residenceAddress" placeholder="residenceAddress" /><br>
+    <input type="text" id="residenceCity" name="residenceCity" placeholder="residenceCity" /><br>
+
+
+    <button type="submit">Submit</button>
+
+    <div id="userMessage"></div>
+</form>
+
+<script th:src="@{/js/user.js}"></script>
+</body>
+</html>

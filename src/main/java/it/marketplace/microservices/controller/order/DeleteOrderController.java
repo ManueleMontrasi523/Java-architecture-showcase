@@ -1,8 +1,8 @@
-package it.marketplace.microservices.controller.user;
+package it.marketplace.microservices.controller.order;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import it.marketplace.microservices.config.exception.ServiceException;
-import it.marketplace.microservices.service.UserService;
+import it.marketplace.microservices.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,17 +15,17 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/user")
-@Tag(name = "User API", description = "User management")
-public class DeleteUserController {
+@RequestMapping("/order")
+@Tag(name = "Order API", description = "Order management")
+public class DeleteOrderController {
 
     @Autowired
-    private UserService service;
+    private OrderService service;
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Map<String, String>> delete(@RequestParam("email") String email) throws ServiceException {
-        service.deleteByEmail(email);
-        return ok().body(Map.of("message", "User deleted!"));
+    public ResponseEntity<Map<String, String>> delete(@RequestParam("orderCode") String code) throws ServiceException {
+        service.deleteByCode(code);
+        return ok().body(Map.of("message", "Order deleted!"));
     }
 
 }

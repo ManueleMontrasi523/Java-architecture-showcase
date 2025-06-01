@@ -1,4 +1,4 @@
-package it.marketplace.microservices.common.mapper;
+package it.marketplace.microservices.config.mapper;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

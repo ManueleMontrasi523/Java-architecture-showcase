@@ -6,8 +6,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,32 +22,34 @@ public class ProductEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
     @SequenceGenerator(name = "product_seq", sequenceName = "product_sequence", allocationSize = 1)
-    @Column(name = "ID")
+    @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "PRODUCT_CODE", unique = true)
+    @Column(name = "PRODUCT_CODE", unique = true, nullable = false)
     private String productCode;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "PRICE")
+    @Column(name = "PRICE", nullable = false)
     private double PRICE;
 
-    @Column(name = "SUPPLY")
-    private String supply;
+    @Column(name = "SUPPLY", nullable = false)
+    private BigDecimal supply;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "CATEGORY")
+    @Column(name = "CATEGORY", nullable = false)
     private CategoryEnum category;
 
-    @Column(name = "CREATION_DATE")
+    @DateTimeFormat
+    @Column(name = "CREATION_DATE", nullable = false)
     private LocalDateTime creationDate;
 
-    @Column(name = "TMS_UPDATE")
+    @DateTimeFormat
+    @Column(name = "TMS_UPDATE", nullable = false)
     private LocalDateTime tmsUpdate;
 
 }
