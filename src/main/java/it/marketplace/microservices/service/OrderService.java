@@ -17,7 +17,9 @@ public interface OrderService {
 
     void deleteByCode(String code) throws ServiceException;
 
-    void startProcessing();
+    void startProcessing(String orderCode);
 
     void cancel(String code);
+
+    void readPendingPaymentsOrder();
 }

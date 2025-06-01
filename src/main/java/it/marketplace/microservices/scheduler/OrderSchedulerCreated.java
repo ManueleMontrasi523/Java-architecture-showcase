@@ -23,7 +23,7 @@ public class OrderSchedulerCreated {
     @Scheduled(fixedDelay = 60000)
     public void startProcessOrder() {
         log.info("The time is now {}", dateFormat.format(new Date()));
-//        service.startProcessing();
+        service.readPendingPaymentsOrder();
     }
 }
 

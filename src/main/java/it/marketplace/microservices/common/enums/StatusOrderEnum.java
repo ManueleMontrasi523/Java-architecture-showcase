@@ -7,6 +7,7 @@ public enum StatusOrderEnum {
     CANCELLED,
     CREATED,
     PROCESSING,
-    PENDING,
+    PENDING_PAYMENT,
     PAID,
+    FAILED
 }
