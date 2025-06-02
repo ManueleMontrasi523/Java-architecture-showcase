@@ -1,24 +1,21 @@
 package it.marketplace.microservices.service.impl;
 
 import it.marketplace.microservices.common.dto.OrderDto;
+import it.marketplace.microservices.common.dto.UserDto;
 import it.marketplace.microservices.common.enums.StatusOrderEnum;
 import it.marketplace.microservices.config.exception.ServiceException;
 import it.marketplace.microservices.config.mapper.OrderMapper;
 import it.marketplace.microservices.database.entity.OrderEntity;
-import it.marketplace.microservices.database.entity.PaymentOrderEntity;
 import it.marketplace.microservices.database.entity.UserEntity;
 import it.marketplace.microservices.database.repository.OrderRepository;
-import it.marketplace.microservices.database.repository.PaymentOrderRepository;
-import it.marketplace.microservices.job.JobService;
 import it.marketplace.microservices.rabbitmq.RabbitMqProducer;
 import it.marketplace.microservices.service.OrderService;
 import it.marketplace.microservices.service.UserService;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.criteria.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,7 +27,6 @@ import static it.marketplace.microservices.config.mapper.OrderMapper.toEntity;
 import static it.marketplace.microservices.utils.CopyProperties.copyNonNullProperties;
 import static it.marketplace.microservices.utils.OrderGenerator.generateOrderCode;
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 @Service
 class OrderServiceImpl implements OrderService {
@@ -39,19 +35,14 @@ class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository repository;
-    @Autowired
-    private PaymentOrderRepository paymentOrderRepository;
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private RabbitMqProducer producer;
-    @Autowired
-    private JobService job;
 
     @Override
-    @Transactional
     public void save(OrderDto dto) throws ServiceException {
         checkOrderOpenByUser(dto.getUser().getEmail());
         OrderEntity entity = toEntity(dto);
@@ -77,9 +68,48 @@ class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void saveDirectly(OrderDto dto) throws ServiceException {
+        repository.save(toEntity(dto));
+    }
+
+    @Override
+    public void saveAll(List<OrderDto> dtos) {
+        try {
+            LocalDateTime now = LocalDateTime.now();
+            List<String> emails = dtos.stream().map(OrderDto::getUser).map(UserDto::getEmail).toList();
+            emails.forEach(this::checkOrderOpenByUser);
+
+            List<OrderEntity> entities = dtos.stream().map(OrderMapper::toEntity).toList();
+
+            entities.forEach(entity -> {
+
+                entity.setOrderCode(generateOrderCode());
+                entity.setOrderDate(now);
+                entity.setTmsUpdate(now);
+
+                entity.getProductOrder().forEach(product -> {
+                    product.setOrderCode(entity.getOrderCode());
+                    product.setCreationDate(now);
+                    product.setTmsUpdate(now);
+                });
+            });
+
+            repository.saveAll(entities);
+        } catch (ServiceException e) {
+            logger.error("ERROR in the class {} with error {}", this.getClass().getName(), e.fillInStackTrace());
+            throw new ServiceException(GENERIC_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
     public OrderDto findByCode(String code) throws ServiceException {
         OrderEntity entity = checkIfOrderExist(code);
         return toDto(entity);
+    }
+
+    @Override
+    public List<OrderDto> findByUserMail(String email) throws ServiceException {
+        return repository.findOrderByUserMail(email).stream().map(OrderMapper::toDto).toList();
     }
 
     @Override
@@ -110,20 +140,6 @@ class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void startProcessing(String orderCode) {
-        logger.info("Arrived new order with code {} in status CREATED", orderCode);
-        OrderEntity entity = repository.findByOrderCodeIgnoreCase(orderCode);
-        if (nonNull(entity)) {
-            entity.setStatus(StatusOrderEnum.PROCESSING);
-            entity.setTmsUpdate(LocalDateTime.now());
-            repository.save(entity);
-            logger.info("Update status in PROCESSING for code {}", orderCode);
-
-            job.processJobAsync(orderCode);
-        }
-    }
-
-    @Override
     public void cancel(String code) {
         OrderEntity entity = checkIfOrderExist(code);
         entity.setStatus(StatusOrderEnum.CANCELLED);
@@ -132,24 +148,11 @@ class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void readPendingPaymentsOrder() {
-        long orderProcessed = 0;
-        logger.info("Reading order in status PENDING_PAYMENT...");
-        List<OrderEntity> orderEntities = repository.findByStatus(StatusOrderEnum.PENDING_PAYMENT);
-        if (!CollectionUtils.isEmpty(orderEntities)) {
-            for (OrderEntity orderEntity : orderEntities) {
-                PaymentOrderEntity paymentOrderEntity = paymentOrderRepository.findByOrderCodeIgnoreCase(orderEntity.getOrderCode());
-                if (StatusOrderEnum.PAID.equals(paymentOrderEntity.getStatus())) {
-                    paymentOrderEntity.setStatus(StatusOrderEnum.PAID);
-                    paymentOrderEntity.setTmsUpdate(LocalDateTime.now());
-                    orderProcessed++;
-                }
-            }
-            repository.saveAll(orderEntities);
-            logger.info("Processed and PAID {} order", orderProcessed);
-        } else {
-            logger.info("No order found with status PENDING_PAYMENT...");
-        }
+    public void payOrder(String orderCode) {
+        OrderEntity entity = repository.findByOrderCodeIgnoreCase(orderCode);
+        entity.setStatus(StatusOrderEnum.PAID);
+        entity.setTmsUpdate(LocalDateTime.now());
+        repository.save(entity);
     }
 
     private OrderEntity checkIfOrderExist(String code) throws ServiceException {

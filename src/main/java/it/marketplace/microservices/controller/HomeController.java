@@ -21,4 +21,9 @@ public class HomeController {
         return "product";
     }
 
+    @GetMapping("/payment")
+    public String payment() {
+        return "payment";
+    }
+
 }

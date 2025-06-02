@@ -20,14 +20,14 @@ h1, h2, h3 {
     padding: 20px;
     margin: 20px auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1500px;
+    max-width: 1000px;
     width: 100%;
     box-sizing: border-box;
 }
 
 table,
 #entityTable,
-#orderContainer {
+#paymentContainer {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
@@ -65,22 +65,14 @@ table,
 
 @media (max-width: 600px) {
     #entityTable,
-    #orderContainer {
+    #paymentContainer {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
     }
 }
 
-label {
-    display: block;
-    margin: 10px 0 5px 0;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="number"],
-select {
+input[type="text"] {
     width: 100%;
     max-width: 300px;
     padding: 8px 10px;
@@ -90,6 +82,7 @@ select {
     font-size: 14px;
 }
 
+button,
 #updateBtn {
     background-color: #2980b9;
     color: white;
@@ -101,49 +94,8 @@ select {
     transition: background-color 0.3s ease;
 }
 
-#removeBtn,
-#manageUserBtn,
-#manageProductBtn,
-#managePaymentBtn,
-#submitOrderBtn,
-#addProductBtn {
-    background-color: #2980b9;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
 button:hover {
     background-color: #1f6391;
-}
-
-#productsContainer .product-entry {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    background: #fafafa;
-    position: relative;
-}
-
-#productsContainer .product-entry label {
-    margin-top: 0;
-}
-
-#productsContainer .product-entry button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #c0392b;
-}
-
-#productsContainer .product-entry button:hover {
-    background-color: #902421;
 }
 
 .no-data {
@@ -154,7 +106,51 @@ button:hover {
     font-size: 16px;
 }
 
-#orderMessage {
+#paymentMessage {
     margin-top: 15px;
     font-weight: bold;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.popup {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 300px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.popup button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background-color: #45a049;
+}
+
+.popup input {
+    width: 100%;
+    padding: 6px;
+    margin-top: 10px;
+    box-sizing: border-box;
 }

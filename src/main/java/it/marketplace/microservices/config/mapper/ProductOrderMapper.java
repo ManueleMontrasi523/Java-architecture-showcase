@@ -13,10 +13,12 @@ public class ProductOrderMapper {
     private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).registerModule(new JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     public static ProductOrderResource toResource(ProductOrderDto dto) {
+        if (dto == null) return null;
         return mapper.convertValue(dto, ProductOrderResource.class);
     }
 
     public static ProductOrderDto toDto(ProductOrderResource resource) {
+        if (resource == null) return null;
         return mapper.convertValue(resource, ProductOrderDto.class);
     }
 
@@ -26,6 +28,7 @@ public class ProductOrderMapper {
     }
 
     public static ProductOrderEntity toEntity(ProductOrderDto dto) {
+        if (dto == null) return null;
         return mapper.convertValue(dto, ProductOrderEntity.class);
     }
 

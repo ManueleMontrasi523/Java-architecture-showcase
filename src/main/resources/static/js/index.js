@@ -76,7 +76,7 @@ function buildTable(data, entity, orderColumn) {
 
     let keys;
     if (entity === 'order' || orderColumn === true) {
-        keys = ['id', 'orderCode', 'userMail', 'status', 'orderDate', 'Gesture'];
+        keys = ['id', 'orderCode', 'Email', 'Status', 'Order Date', 'Gesture'];
     } else {
         keys = Object.keys(data[0]);
     }
@@ -97,9 +97,6 @@ function buildTable(data, entity, orderColumn) {
 
             if (entity === 'order' || orderColumn === true) {
                 switch (key) {
-                    case 'userMail':
-                        value = item.userResource?.email || '';
-                        break;
                     case 'orderCode':
                         const link = document.createElement('a');
                         link.href = '#';
@@ -110,10 +107,19 @@ function buildTable(data, entity, orderColumn) {
                         });
                         td.appendChild(link);
                         break;
+                    case 'Email':
+                        value = item.userResource?.email || '';
+                        break;
+                    case 'Status':
+                        value = item.status || '';
+                        break;
+                    case 'Order Date':
+                        value = item.orderDate || '';
+                        break;
                     case 'Gesture':
                         const link2 = document.createElement('a');
                         link2.href = '#';
-                        link2.textContent = 'delete';
+                        link2.textContent = 'DELETE';
                         link2.style.cursor = 'pointer';
                         link2.style.color = '#d11a2a';
                         link2.style.textDecoration = 'underline';
@@ -249,7 +255,7 @@ function populateUserSelect(users) {
     users.forEach(user => {
         const option = document.createElement('option');
         option.value = JSON.stringify(user);
-        option.text = user.name || user.username || `User ${user.id}` || JSON.stringify(user);
+        option.text = user.name;
         userSelect.add(option);
     });
 }
@@ -358,12 +364,10 @@ function createProductEntry() {
     productsContainer.appendChild(productDiv);
 }
 
-// Invocazione della funzione per aggiungere prodotti
 addProductBtn.addEventListener('click', () => {
     createProductEntry();
 });
 
-// Submit order
 submitOrderBtn.addEventListener('click', () => {
     submitOrder();
 });
@@ -412,7 +416,7 @@ function submitOrder() {
             quantity,
             productCode,
             unitPrice: price,
-            total: price * quantity
+            total: (price * quantity).toFixed(2)
         });
     }
 

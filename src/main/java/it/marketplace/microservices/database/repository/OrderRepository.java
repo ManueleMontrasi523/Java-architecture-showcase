@@ -16,5 +16,8 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     @Query("SELECT oe FROM OrderEntity oe WHERE user.email = :email AND status = :status")
     OrderEntity findOrderByUserMailAndStatus(String email, StatusOrderEnum status);
 
+    @Query("SELECT oe FROM OrderEntity oe WHERE user.email = :email")
+    List<OrderEntity> findOrderByUserMail(String email);
+
     List<OrderEntity> findByStatus(StatusOrderEnum status);
 }

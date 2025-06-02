@@ -9,7 +9,13 @@ public interface OrderService {
 
     void save(OrderDto dto) throws ServiceException;
 
+    void saveDirectly(OrderDto dto) throws ServiceException;
+
+    void saveAll(List<OrderDto> dtos);
+
     OrderDto findByCode(String code) throws ServiceException;
+
+    List<OrderDto> findByUserMail(String email) throws ServiceException;
 
     List<OrderDto> findAll() throws ServiceException;
 
@@ -17,9 +23,7 @@ public interface OrderService {
 
     void deleteByCode(String code) throws ServiceException;
 
-    void startProcessing(String orderCode);
-
     void cancel(String code);
 
-    void readPendingPaymentsOrder();
+    void payOrder(String orderCode);
 }

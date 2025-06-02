@@ -31,6 +31,7 @@ public class OrderMapper {
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     public static OrderResource toResource(OrderDto dto) {
+        if (dto == null) return null;
         OrderResource resource = mapper.convertValue(dto, OrderResource.class);
 
         if (nonNull(dto.getUser()))
@@ -47,6 +48,7 @@ public class OrderMapper {
     }
 
     public static OrderDto toDto(OrderResource resource) {
+        if (resource == null) return null;
         OrderDto dto = mapper.convertValue(resource, OrderDto.class);
 
         if (nonNull(resource.getUserResource()))
@@ -81,6 +83,7 @@ public class OrderMapper {
     }
 
     public static OrderEntity toEntity(OrderDto dto) {
+        if (dto == null) return null;
         OrderEntity entity = mapper.convertValue(dto, OrderEntity.class);
 
         if (nonNull(dto.getUser()))

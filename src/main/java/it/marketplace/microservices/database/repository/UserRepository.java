@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     UserEntity findByEmailIgnoreCase(String email);
 
+    List<UserEntity> findAllByEmailIgnoreCaseIn(List<String> email);
+
     List<UserEntity> findAllByStatus(StatusUserEnum status);
 
     @Transactional

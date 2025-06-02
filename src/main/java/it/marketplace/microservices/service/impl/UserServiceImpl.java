@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,12 +32,12 @@ class UserServiceImpl implements UserService {
 
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 
     @Override
     public void save(UserDto dto) throws ServiceException {
         try {
-            UserEntity entityOld = userRepository.findByEmailIgnoreCase(dto.getEmail());
+            UserEntity entityOld = repository.findByEmailIgnoreCase(dto.getEmail());
             if (nonNull(entityOld)) throw new ServiceException(DATA_ALREADY_PRESENT, "Email already registered");
 
             UserEntity entity = toEntity(dto);
@@ -46,7 +47,32 @@ class UserServiceImpl implements UserService {
             entity.setTmsSubscriptionDate(nonNull(dto.getTmsSubscriptionDate()) ? dto.getTmsSubscriptionDate() : LocalDateTime.now());
             entity.setTmsUpdate(LocalDateTime.now());
 
-            userRepository.save(entity);
+            repository.save(entity);
+        } catch (ServiceException e) {
+            logger.error("ERROR in the class {} with error {}", this.getClass().getName(), e.fillInStackTrace());
+            throw new ServiceException(GENERIC_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveAll(List<UserDto> dto) {
+        try {
+            LocalDateTime now = LocalDateTime.now();
+            List<String> emails = dto.stream().map(UserDto::getEmail).toList();
+            List<UserEntity> entityOld = repository.findAllByEmailIgnoreCaseIn(emails);
+            if (!CollectionUtils.isEmpty(entityOld))
+                throw new ServiceException(DATA_ALREADY_PRESENT, "Email already registered");
+
+            List<UserEntity> entities = dto.stream().map(UserMapper::toEntity).toList();
+
+            entities.forEach(entity -> {
+                entity.setRole(RoleEnum.CLIENT);
+                entity.setStatus(StatusUserEnum.ACTIVE);
+                entity.setTmsSubscriptionDate(now);
+                entity.setTmsUpdate(now);
+            });
+
+            repository.saveAll(entities);
         } catch (ServiceException e) {
             logger.error("ERROR in the class {} with error {}", this.getClass().getName(), e.fillInStackTrace());
             throw new ServiceException(GENERIC_ERROR, e.getMessage());
@@ -66,7 +92,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAll(StatusUserEnum status) {
-        List<UserEntity> entities = userRepository.findAllByStatus(status);
+        List<UserEntity> entities = repository.findAllByStatus(status);
         List<UserDto> dtos = new ArrayList<>(entities.stream()
                 .map(UserMapper::toDto)
                 .toList());
@@ -79,14 +105,14 @@ class UserServiceImpl implements UserService {
 
         copyNonNullProperties(dto, entity);
         entity.setTmsUpdate(LocalDateTime.now());
-        userRepository.save(entity);
+        repository.save(entity);
     }
 
     @Override
     public void deleteByEmail(String email) throws ServiceException {
         try {
             UserEntity entity = checkIfUserExist(email);
-            userRepository.deleteById(entity.getId());
+            repository.deleteById(entity.getId());
         } catch (ServiceException e) {
             throw new ServiceException(GENERIC_ERROR, e.getMessage());
         }
@@ -95,11 +121,11 @@ class UserServiceImpl implements UserService {
     @Override
     public void statusByEmail(String email, StatusUserEnum status) throws ServiceException {
         checkIfUserExist(email);
-        userRepository.statusRelationshipsByEmail(email, status);
+        repository.statusRelationshipsByEmail(email, status);
     }
 
     private UserEntity checkIfUserExist(String email) throws ServiceException {
-        UserEntity entity = userRepository.findByEmailIgnoreCase(email);
+        UserEntity entity = repository.findByEmailIgnoreCase(email);
         if (isNull(entity))
             throw new ServiceException(EMAIL_NOT_FOUND, "User with email: " + email + " not found");
         return entity;

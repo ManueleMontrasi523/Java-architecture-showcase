@@ -13,18 +13,22 @@ public class UserMapper {
     private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).registerModule(new JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     public static UserResource toResource(UserDto dto) {
+        if (dto == null) return null;
         return mapper.convertValue(dto, UserResource.class);
     }
 
     public static UserDto toDto(UserResource resource) {
+        if (resource == null) return null;
         return mapper.convertValue(resource, UserDto.class);
     }
 
     public static UserDto toDto(UserEntity entity) {
+        if (entity == null) return null;
         return mapper.convertValue(entity, UserDto.class);
     }
 
     public static UserEntity toEntity(UserDto dto) {
+        if (dto == null) return null;
         UserEntity entity = mapper.convertValue(dto, UserEntity.class);
         entity.setEmail(entity.getEmail().toLowerCase());
         return entity;

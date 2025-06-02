@@ -11,6 +11,8 @@ public interface UserService {
 
     void save(UserDto dto) throws ServiceException;
 
+    void saveAll(List<UserDto> dtos);
+
     UserDto findByEmail(String email) throws ServiceException;
 
     UserEntity findByEmailEntity(String email) throws ServiceException;

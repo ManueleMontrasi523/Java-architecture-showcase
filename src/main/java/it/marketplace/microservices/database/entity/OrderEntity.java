@@ -31,13 +31,16 @@ public class OrderEntity implements Serializable {
     @JoinColumn(name = "FK_USER", referencedColumnName = "ID", nullable = false)
     private UserEntity user;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_ORDER", referencedColumnName = "ID", nullable = false)
     private List<ProductOrderEntity> productOrder;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", nullable = false)
     private StatusOrderEnum status;
+
+    @Column(name = "REJECT_REASON")
+    private String rejectReason;
 
     @DateTimeFormat
     @Column(name = "ORDER_DATE", nullable = false)

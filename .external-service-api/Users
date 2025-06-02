@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Luca",
+    "lastname": "Rossi",
+    "email": "luca.rossi@example.com",
+    "residenceAddress": "Via Roma 12",
+    "residenceCity": "Milano"
+  },
+  {
+    "name": "Maria",
+    "lastname": "Bianchi",
+    "email": "maria.bianchi@example.com",
+    "residenceAddress": "Piazza Verdi 5",
+    "residenceCity": "Torino"
+  },
+  {
+    "name": "Giovanni",
+    "lastname": "Esposito",
+    "email": "giovanni.esposito@example.com",
+    "residenceAddress": "Corso Venezia 18",
+    "residenceCity": "Napoli"
+  },
+  {
+    "name": "Francesca",
+    "lastname": "Conti",
+    "email": "francesca.conti@example.com",
+    "residenceAddress": "Via Dante 23",
+    "residenceCity": "Firenze"
+  },
+  {
+    "name": "Marco",
+    "lastname": "Ferrari",
+    "email": "marco.ferrari@example.com",
+    "residenceAddress": "Via Garibaldi 7",
+    "residenceCity": "Bologna"
+  }
+]

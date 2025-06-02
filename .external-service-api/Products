@@ -1,0 +1,242 @@
+[
+  {
+    "productCode": "FD10001",
+    "name": "Pasta Italiana",
+    "description": "Pasta di grano duro 100% italiano",
+    "price": 2.49,
+    "supply": 1500,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10002",
+    "name": "Caffè Espresso",
+    "description": "Caffè tostato in grani",
+    "price": 5.99,
+    "supply": 800,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10003",
+    "name": "Olio Extra Vergine",
+    "description": "Olio d'oliva extravergine biologico",
+    "price": 7.25,
+    "supply": 600,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10004",
+    "name": "Cioccolato Fondente",
+    "description": "Cioccolato 70% cacao senza zuccheri aggiunti",
+    "price": 3.95,
+    "supply": 1200,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10005",
+    "name": "Miele di Acacia",
+    "description": "Miele puro di acacia italiano",
+    "price": 6.80,
+    "supply": 340,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10006",
+    "name": "Riso Arborio",
+    "description": "Riso ideale per risotti cremosi",
+    "price": 2.75,
+    "supply": 900,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10007",
+    "name": "Biscotti Integrali",
+    "description": "Biscotti senza zuccheri aggiunti",
+    "price": 3.25,
+    "supply": 1100,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10008",
+    "name": "Farina di Mandorle",
+    "description": "Farina senza glutine per dolci",
+    "price": 4.99,
+    "supply": 550,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10009",
+    "name": "Tè Verde Matcha",
+    "description": "Polvere di tè verde biologico",
+    "price": 8.90,
+    "supply": 470,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "FD10010",
+    "name": "Succhi di Frutta Bio",
+    "description": "Mix di succhi biologici assortiti",
+    "price": 4.20,
+    "supply": 620,
+    "category": "FOOD"
+  },
+  {
+    "productCode": "TC20001",
+    "name": "Mouse Wireless",
+    "description": "Mouse ergonomico senza fili",
+    "price": 19.99,
+    "supply": 300,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20002",
+    "name": "Tastiera Meccanica",
+    "description": "Tastiera RGB per gaming",
+    "price": 59.90,
+    "supply": 250,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20003",
+    "name": "Auricolari Bluetooth",
+    "description": "Auricolari con cancellazione del rumore",
+    "price": 34.50,
+    "supply": 400,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20004",
+    "name": "Power Bank",
+    "description": "Batteria portatile 10.000mAh con USB-C",
+    "price": 25.00,
+    "supply": 320,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20005",
+    "name": "Webcam HD",
+    "description": "Webcam Full HD 1080p per videochiamate",
+    "price": 39.99,
+    "supply": 150,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20006",
+    "name": "Smartwatch Basic",
+    "description": "Orologio smart con monitoraggio attività",
+    "price": 45.90,
+    "supply": 220,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20007",
+    "name": "Hard Disk Esterno",
+    "description": "Hard disk 1TB USB 3.0",
+    "price": 69.00,
+    "supply": 190,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20008",
+    "name": "Hub USB-C",
+    "description": "Adattatore multiporta per laptop",
+    "price": 27.80,
+    "supply": 400,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20009",
+    "name": "Speaker Bluetooth",
+    "description": "Altoparlante portatile impermeabile",
+    "price": 32.95,
+    "supply": 360,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "TC20010",
+    "name": "Luce LED Anulare",
+    "description": "Ring light per streaming e selfie",
+    "price": 18.45,
+    "supply": 280,
+    "category": "TECHNOLOGIES"
+  },
+  {
+    "productCode": "HM30001",
+    "name": "Lampada da tavolo",
+    "description": "Lampada LED dimmerabile ricaricabile",
+    "price": 22.75,
+    "supply": 350,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30002",
+    "name": "Cuscino Memory",
+    "description": "Cuscino ortopedico in memory foam",
+    "price": 29.90,
+    "supply": 500,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30003",
+    "name": "Telo Arredo",
+    "description": "Telo copridivano fantasia geometrica",
+    "price": 17.45,
+    "supply": 700,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30004",
+    "name": "Diffusore Aromi",
+    "description": "Diffusore di oli essenziali con luci LED",
+    "price": 18.60,
+    "supply": 460,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30005",
+    "name": "Contenitori Cucina",
+    "description": "Set 5 contenitori in vetro con coperchi",
+    "price": 24.99,
+    "supply": 380,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30006",
+    "name": "Porta Scarpe",
+    "description": "Scarpiera salvaspazio in tessuto",
+    "price": 21.30,
+    "supply": 270,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30007",
+    "name": "Stendi Biancheria",
+    "description": "Stendino pieghevole da balcone",
+    "price": 19.75,
+    "supply": 330,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30008",
+    "name": "Set Posate Acciaio",
+    "description": "Servizio 24 pezzi in acciaio inox",
+    "price": 34.90,
+    "supply": 210,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30009",
+    "name": "Tappeto Decorativo",
+    "description": "Tappeto lavabile stile moderno 160x230",
+    "price": 39.90,
+    "supply": 130,
+    "category": "HOME"
+  },
+  {
+    "productCode": "HM30010",
+    "name": "Specchio da Parete",
+    "description": "Specchio rotondo con cornice in legno",
+    "price": 49.99,
+    "supply": 90,
+    "category": "HOME"
+  }
+]

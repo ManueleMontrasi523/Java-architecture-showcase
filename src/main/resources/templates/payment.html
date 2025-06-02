@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/payment.css}"/>
+</head>
+
+<body>
+<h2>Pay Order</h2>
+<div class="container" id="paymentContainer">
+
+    <input type="text" id="searchInput" placeholder="Search..."/>
+
+    <button id="updateBtn" style="float: right;">Update</button>
+
+    <table id="entityTable">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Order Code</th>
+            <th>Status</th>
+            <th>Debit</th>
+            <th>Order Date</th>
+            <th>Gesture</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="noData" class="no-data" style="display:none;">No data Found</div>
+    <br>
+
+    <div id="paymentMessage"></div>
+</div>
+
+<script th:src="@{/js/payment.js}"></script>
+</body>
+</html>

@@ -11,6 +11,10 @@ public interface ProductService {
 
     void save(ProductDto dto) throws ServiceException;
 
+    void saveAll(List<ProductDto> dto);
+
+    void saveAllDirectly(List<ProductDto> dto);
+
     ProductDto findByCode(String code) throws ServiceException;
 
     List<ProductDto> findAll() throws ServiceException;
@@ -22,4 +26,5 @@ public interface ProductService {
     void updateProductStorageStatus(List<ProductOrderEntity> productOrderEntity);
 
     List<String> checkRemainingSupplyProduct(List<ProductOrderDto> productOrderEntity);
+
 }

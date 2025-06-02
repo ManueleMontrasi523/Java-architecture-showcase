@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,20 +41,50 @@ class ProductServiceImpl implements ProductService {
     @Override
     public void save(ProductDto dto) throws ServiceException {
         try {
+            LocalDateTime now = LocalDateTime.now();
             ProductEntity entityOld = repository.findByProductCodeIgnoreCase(dto.getProductCode());
             if (nonNull(entityOld))
                 throw new ServiceException(DATA_ALREADY_PRESENT, "Product already registered");
 
             ProductEntity entity = toEntity(dto);
 
-            entity.setCreationDate(nonNull(dto.getCreationDate()) ? dto.getCreationDate() : LocalDateTime.now());
-            entity.setTmsUpdate(LocalDateTime.now());
+            entity.setCreationDate(now);
+            entity.setTmsUpdate(now);
 
             repository.save(entity);
         } catch (ServiceException e) {
             logger.error("ERROR in the class {} with error {}", this.getClass().getName(), e.fillInStackTrace());
             throw new ServiceException(GENERIC_ERROR, e.getMessage());
         }
+    }
+
+    @Override
+    public void saveAll(List<ProductDto> dto) {
+        try {
+            LocalDateTime now = LocalDateTime.now();
+            List<String> productDtos = dto.stream().map(ProductDto::getProductCode).toList();
+            List<ProductEntity> entityOld = repository.findAllByProductCodeIn(productDtos);
+            if (!CollectionUtils.isEmpty(entityOld))
+                throw new ServiceException(DATA_ALREADY_PRESENT, "Products already registered");
+
+            List<ProductEntity> entities = dto.stream().map(ProductMapper::toEntity).toList();
+
+            entities.forEach(entity -> {
+                entity.setCreationDate(now);
+                entity.setTmsUpdate(now);
+            });
+
+            repository.saveAll(entities);
+        } catch (ServiceException e) {
+            logger.error("ERROR in the class {} with error {}", this.getClass().getName(), e.fillInStackTrace());
+            throw new ServiceException(GENERIC_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveAllDirectly(List<ProductDto> dto) {
+        List<ProductEntity> entities = dto.stream().map(ProductMapper::toEntity).toList();
+        repository.saveAll(entities);
     }
 
     @Override
