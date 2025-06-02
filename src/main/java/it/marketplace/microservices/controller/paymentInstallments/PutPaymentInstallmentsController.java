@@ -1,8 +1,8 @@
-package it.marketplace.microservices.controller.paymentOrder;
+package it.marketplace.microservices.controller.paymentInstallments;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import it.marketplace.microservices.config.exception.ServiceException;
-import it.marketplace.microservices.service.PaymentOrderService;
+import it.marketplace.microservices.service.PaymentInstallmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,18 +17,18 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/payment-order")
 @Tag(name = "Payment Order API", description = "Payment Order management")
-public class PutPaymentOrderController {
+public class PutPaymentInstallmentsController {
 
     @Autowired
-    private PaymentOrderService service;
+    private PaymentInstallmentsService service;
 
-    @PutMapping("/pay")
+    @PutMapping("/pay-rate")
     public ResponseEntity<Map<String, String>> pay(
             @RequestParam(value = "orderCode") String orderCode,
-            @RequestParam(value = "isInstallments") Boolean isInstallments
+            @RequestParam(value = "number") int number
     ) throws ServiceException {
-        service.payOrder(orderCode, isInstallments);
-        return ok().body(Map.of("message", "Order paid!"));
+        service.payInstallments(orderCode, number);
+        return ok().body(Map.of("message", "Rate paid!"));
     }
 
 }

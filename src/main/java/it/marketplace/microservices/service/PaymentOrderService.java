@@ -10,5 +10,5 @@ public interface PaymentOrderService {
 
     List<PaymentOrderDto> findAll();
 
-    void payOrder(String orderCode);
+    void payOrder(String orderCode, Boolean isInstallments);
 }

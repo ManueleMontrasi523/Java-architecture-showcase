@@ -131,7 +131,6 @@ button:hover {
     max-width: 300px;
     width: 90%;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    text-align: center;
 }
 
 .popup button {
@@ -148,9 +147,3 @@ button:hover {
     background-color: #45a049;
 }
 
-.popup input {
-    width: 100%;
-    padding: 6px;
-    margin-top: 10px;
-    box-sizing: border-box;
-}

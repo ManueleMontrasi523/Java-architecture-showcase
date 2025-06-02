@@ -20,6 +20,7 @@ public class ServiceException extends RuntimeException {
         PRODUCT_NOT_FOUND,
         PRODUCT_SUPPLY_EXCEED,
         ORDER_NOT_FOUND,
-        ORDER_EXIST_FOR_USER_FOUND
+        ORDER_EXIST_FOR_USER_FOUND,
+        PAYMENT_RATE_EXCEED
     }
 }

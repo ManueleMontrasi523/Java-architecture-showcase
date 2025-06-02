@@ -8,6 +8,7 @@ public enum StatusOrderEnum {
     CREATED,
     PROCESSING,
     PENDING_PAYMENT,
+    RATEIZED,
     PAID,
     REJECTED,
     FAILED

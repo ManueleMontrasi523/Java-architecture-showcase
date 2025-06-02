@@ -124,6 +124,7 @@ function buildTable(data, entity, orderColumn) {
                         link2.style.color = '#d11a2a';
                         link2.style.textDecoration = 'underline';
                         link2.title = 'Delete Order';
+                        link2.disabled = item.status == 'CANCELLED' || item.status == 'PAID'
 
                         link2.addEventListener('click', (e) => {
                             e.preventDefault();
