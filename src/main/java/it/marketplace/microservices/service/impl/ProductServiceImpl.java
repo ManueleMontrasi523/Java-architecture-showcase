@@ -29,6 +29,10 @@ import static it.marketplace.microservices.utils.CopyProperties.copyNonNullPrope
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+/**
+ * Service implementation for managing products in the marketplace system.
+ * Handles product creation, update, deletion, inventory management, and supply checks.
+ */
 @Service
 class ProductServiceImpl implements ProductService {
 
@@ -38,6 +42,11 @@ class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository repository;
 
+    /**
+     * Saves a new product.
+     * @param dto the product DTO to save
+     * @throws ServiceException if the product already exists or another error occurs
+     */
     @Override
     public void save(ProductDto dto) throws ServiceException {
         try {
@@ -58,6 +67,11 @@ class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * Saves a list of products.
+     * @param dto the list of product DTOs to save
+     * @throws ServiceException if any product already exists or another error occurs
+     */
     @Override
     public void saveAll(List<ProductDto> dto) {
         try {
@@ -81,18 +95,32 @@ class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * Saves a list of products directly without additional processing.
+     * @param dto the list of product DTOs to save
+     */
     @Override
     public void saveAllDirectly(List<ProductDto> dto) {
         List<ProductEntity> entities = dto.stream().map(ProductMapper::toEntity).toList();
         repository.saveAll(entities);
     }
 
+    /**
+     * Finds a product by its code.
+     * @param code the product code
+     * @return the matching ProductDto
+     * @throws ServiceException if the product is not found
+     */
     @Override
     public ProductDto findByCode(String code) throws ServiceException {
         ProductEntity entity = checkIfProductExist(code);
         return toDto(entity);
     }
 
+    /**
+     * Finds all products in the system.
+     * @return a list of ProductDto
+     */
     @Override
     public List<ProductDto> findAll() {
         List<ProductDto> dtos;
@@ -103,6 +131,11 @@ class ProductServiceImpl implements ProductService {
         return dtos;
     }
 
+    /**
+     * Updates an existing product.
+     * @param dto the product DTO with updated data
+     * @throws ServiceException if the product is not found or another error occurs
+     */
     @Override
     public void update(ProductDto dto) throws ServiceException {
         ProductEntity entity = checkIfProductExist(dto.getProductCode());
@@ -112,6 +145,11 @@ class ProductServiceImpl implements ProductService {
         repository.save(entity);
     }
 
+    /**
+     * Deletes a product by its code.
+     * @param code the product code to delete
+     * @throws ServiceException if the product is not found or another error occurs
+     */
     @Override
     public void deleteByCode(String code) throws ServiceException {
         try {
@@ -122,6 +160,10 @@ class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * Updates the storage status of products based on product orders.
+     * @param productOrderEntity the list of product order entities
+     */
     @Override
     @Transactional
     public void updateProductStorageStatus(List<ProductOrderEntity> productOrderEntity) {
@@ -141,6 +183,11 @@ class ProductServiceImpl implements ProductService {
         });
     }
 
+    /**
+     * Checks which products in the order exceed available supply.
+     * @param productOrderEntity the list of product order DTOs
+     * @return a list of product codes that exceed supply
+     */
     @Override
     public List<String> checkRemainingSupplyProduct(List<ProductOrderDto> productOrderEntity) {
         List<String> productCode = productOrderEntity.stream().map(ProductOrderDto::getProductCode).toList();
@@ -158,6 +205,12 @@ class ProductServiceImpl implements ProductService {
                 .toList();
     }
 
+    /**
+     * Checks if a product exists by code, throws exception if not found.
+     * @param code the product code
+     * @return the matching ProductEntity
+     * @throws ServiceException if the product is not found
+     */
     private ProductEntity checkIfProductExist(String code) throws ServiceException {
         ProductEntity entity = repository.findByProductCodeIgnoreCase(code);
         if (isNull(entity))

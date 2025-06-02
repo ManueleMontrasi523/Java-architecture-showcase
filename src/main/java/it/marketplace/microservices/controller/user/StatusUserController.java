@@ -15,6 +15,10 @@ import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for updating the status of a user in the marketplace system.
+ * Provides an endpoint to update a user's status by email.
+ */
 @RestController
 @RequestMapping("/user")
 @Tag(name = "User API", description = "User management")
@@ -23,6 +27,13 @@ public class StatusUserController {
     @Autowired
     private UserService service;
 
+    /**
+     * Updates the status of a user by email.
+     * @param email the email of the user to update
+     * @param status the new status to set
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the user status cannot be updated
+     */
     @PutMapping("/status")
     public ResponseEntity<Map<String, String>> status(@RequestParam("email") String email, @RequestParam("status") StatusUserEnum status) throws ServiceException {
         service.statusByEmail(email, status);

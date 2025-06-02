@@ -14,6 +14,10 @@ import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for processing payment of an order in the marketplace system.
+ * Provides an endpoint to pay an order, with or without installments.
+ */
 @RestController
 @RequestMapping("/payment-order")
 @Tag(name = "Payment Order API", description = "Payment Order management")
@@ -22,6 +26,13 @@ public class PutPaymentOrderController {
     @Autowired
     private PaymentOrderService service;
 
+    /**
+     * Pays an order, specifying if it is in installments.
+     * @param orderCode the order code to pay
+     * @param isInstallments whether the payment is for installments
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the payment cannot be processed
+     */
     @PutMapping("/pay")
     public ResponseEntity<Map<String, String>> pay(
             @RequestParam(value = "orderCode") String orderCode,

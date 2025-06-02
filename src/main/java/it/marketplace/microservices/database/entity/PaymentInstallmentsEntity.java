@@ -10,8 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/*
- * THIS TABLE WILL BE USED TO SIMULATE CORRECTLY TERMINATED PAYMENTS WITH 12 INSTALLMENTS
+/**
+ * Entity representing a payment installment in the marketplace system.
+ * Contains details for simulating payments with multiple installments, including reference, order code, status, debit, and update timestamp.
  */
 @Data
 @AllArgsConstructor

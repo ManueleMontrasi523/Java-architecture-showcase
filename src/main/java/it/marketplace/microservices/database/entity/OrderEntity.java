@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Entity representing an order in the marketplace system.
+ * Contains order details, user, product list, status, rejection reason, and relevant dates.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

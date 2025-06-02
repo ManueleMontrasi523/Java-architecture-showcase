@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Resource class representing payment installments for an order in API responses.
+ * Contains installment reference, order code, status, debit amount, and update timestamp.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

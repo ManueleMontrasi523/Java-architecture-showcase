@@ -25,6 +25,10 @@ import static it.marketplace.microservices.utils.CopyProperties.copyNonNullPrope
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+/**
+ * Service implementation for managing users in the marketplace system.
+ * Handles user creation, update, deletion, status changes, and retrieval operations.
+ */
 @Service
 class UserServiceImpl implements UserService {
 
@@ -34,6 +38,11 @@ class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
+    /**
+     * Saves a new user.
+     * @param dto the user DTO to save
+     * @throws ServiceException if the user already exists or another error occurs
+     */
     @Override
     public void save(UserDto dto) throws ServiceException {
         try {
@@ -54,6 +63,11 @@ class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Saves a list of users.
+     * @param dto the list of user DTOs to save
+     * @throws ServiceException if any user already exists or another error occurs
+     */
     @Override
     public void saveAll(List<UserDto> dto) {
         try {
@@ -79,17 +93,34 @@ class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Finds a user by email.
+     * @param email the email of the user to find
+     * @return the matching UserDto
+     * @throws ServiceException if the user is not found
+     */
     @Override
     public UserDto findByEmail(String email) throws ServiceException {
         UserEntity entity = checkIfUserExist(email);
         return toDto(entity);
     }
 
+    /**
+     * Finds a user entity by email.
+     * @param email the email of the user to find
+     * @return the matching UserEntity
+     * @throws ServiceException if the user is not found
+     */
     @Override
     public UserEntity findByEmailEntity(String email) throws ServiceException {
         return checkIfUserExist(email);
     }
 
+    /**
+     * Finds all users by status.
+     * @param status the status to filter users
+     * @return a list of UserDto
+     */
     @Override
     public List<UserDto> findAll(StatusUserEnum status) {
         List<UserEntity> entities = repository.findAllByStatus(status);
@@ -99,6 +130,11 @@ class UserServiceImpl implements UserService {
         return dtos;
     }
 
+    /**
+     * Updates an existing user.
+     * @param dto the user DTO with updated data
+     * @throws ServiceException if the user is not found or another error occurs
+     */
     @Override
     public void update(UserDto dto) throws ServiceException {
         UserEntity entity = checkIfUserExist(dto.getEmail());
@@ -108,6 +144,11 @@ class UserServiceImpl implements UserService {
         repository.save(entity);
     }
 
+    /**
+     * Deletes a user by email.
+     * @param email the email of the user to delete
+     * @throws ServiceException if the user is not found or another error occurs
+     */
     @Override
     public void deleteByEmail(String email) throws ServiceException {
         try {
@@ -118,12 +159,24 @@ class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Updates the status of a user by email.
+     * @param email the email of the user to update
+     * @param status the new status to set
+     * @throws ServiceException if the user is not found or another error occurs
+     */
     @Override
     public void statusByEmail(String email, StatusUserEnum status) throws ServiceException {
         checkIfUserExist(email);
         repository.statusRelationshipsByEmail(email, status);
     }
 
+    /**
+     * Checks if a user exists by email, throws exception if not found.
+     * @param email the email to check
+     * @return the matching UserEntity
+     * @throws ServiceException if the user is not found
+     */
     private UserEntity checkIfUserExist(String email) throws ServiceException {
         UserEntity entity = repository.findByEmailIgnoreCase(email);
         if (isNull(entity))

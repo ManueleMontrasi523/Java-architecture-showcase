@@ -22,6 +22,10 @@ import static it.marketplace.microservices.common.enums.StatusOrderEnum.CANCELLE
 import static it.marketplace.microservices.common.enums.StatusOrderEnum.PENDING_PAYMENT;
 import static java.util.Objects.nonNull;
 
+/**
+ * Service implementation for managing transactions in the marketplace system.
+ * Handles order processing, payment processing, and state alignment for orders and payments.
+ */
 @Service
 class TransactionServiceImpl implements TransactionService {
 
@@ -29,13 +33,17 @@ class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private PaymentOrderRepository paymentOrderRepository;
 
     @Autowired
     private JobService job;
 
-
+    /**
+     * Starts processing for a new order, updating its status and triggering background jobs.
+     * @param orderCode the order code to process
+     */
     @Override
     public void startProcessing(String orderCode) {
         logger.info("Arrived new order with code {} in status CREATED", orderCode);
@@ -50,6 +58,10 @@ class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    /**
+     * Starts processing for a pending payment, updating order and payment order status.
+     * @param message the message map containing order code and debit
+     */
     @Override
     public void startPendingPayment(Map<String, String> message) {
         logger.info("Start process pending payment with code {}", message);
@@ -71,6 +83,9 @@ class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    /**
+     * Reads all orders in PENDING_PAYMENT status and updates their state if paid.
+     */
     @Override
     public void readPendingPaymentsOrder() {
         long orderProcessed = 0;
@@ -95,6 +110,9 @@ class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    /**
+     * Aligns the states of orders and payment orders marked as CANCELLED.
+     */
     @Override
     public void startAlignmentStatesOrder() {
         logger.info("Searching for orders with misaligned states CANCELLED...");
@@ -120,3 +138,5 @@ class TransactionServiceImpl implements TransactionService {
     }
 
 }
+
+

@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Data Transfer Object (DTO) representing payment installments for an order.
+ * Contains information about the installment reference, order code, status, debit amount, and update timestamp.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

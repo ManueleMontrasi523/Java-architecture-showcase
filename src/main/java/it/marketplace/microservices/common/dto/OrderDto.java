@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Data Transfer Object (DTO) representing an order in the marketplace system.
+ * Contains information about the order, user, products, status, and relevant dates.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

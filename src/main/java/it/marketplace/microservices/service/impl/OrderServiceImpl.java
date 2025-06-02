@@ -28,6 +28,10 @@ import static it.marketplace.microservices.utils.CopyProperties.copyNonNullPrope
 import static it.marketplace.microservices.utils.OrderGenerator.generateOrderCode;
 import static java.util.Objects.isNull;
 
+/**
+ * Service implementation for managing orders in the marketplace system.
+ * Handles order creation, update, deletion, payment, and related business logic.
+ */
 @Service
 class OrderServiceImpl implements OrderService {
 
@@ -42,6 +46,11 @@ class OrderServiceImpl implements OrderService {
     @Autowired
     private RabbitMqProducer producer;
 
+    /**
+     * Saves a new order and sends a notification message.
+     * @param dto the order DTO to save
+     * @throws ServiceException if an order already exists for the user or another error occurs
+     */
     @Override
     public void save(OrderDto dto) throws ServiceException {
         checkOrderOpenByUser(dto.getUser().getEmail());
@@ -67,11 +76,21 @@ class OrderServiceImpl implements OrderService {
         producer.sendMessageNewOrder(orderCode);
     }
 
+    /**
+     * Saves an order directly without additional processing.
+     * @param dto the order DTO to save
+     * @throws ServiceException if an error occurs
+     */
     @Override
     public void saveDirectly(OrderDto dto) throws ServiceException {
         repository.save(toEntity(dto));
     }
 
+    /**
+     * Saves a list of orders.
+     * @param dtos the list of order DTOs to save
+     * @throws ServiceException if an order already exists for a user or another error occurs
+     */
     @Override
     public void saveAll(List<OrderDto> dtos) {
         try {
@@ -101,17 +120,33 @@ class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Finds an order by its code.
+     * @param code the order code
+     * @return the matching OrderDto
+     * @throws ServiceException if the order is not found
+     */
     @Override
     public OrderDto findByCode(String code) throws ServiceException {
         OrderEntity entity = checkIfOrderExist(code);
         return toDto(entity);
     }
 
+    /**
+     * Finds all orders for a user by email.
+     * @param email the user's email
+     * @return a list of OrderDto
+     * @throws ServiceException if an error occurs
+     */
     @Override
     public List<OrderDto> findByUserMail(String email) throws ServiceException {
         return repository.findOrderByUserMail(email).stream().map(OrderMapper::toDto).toList();
     }
 
+    /**
+     * Finds all orders in the system.
+     * @return a list of OrderDto
+     */
     @Override
     public List<OrderDto> findAll() {
         List<OrderEntity> entities = repository.findAll();
@@ -120,6 +155,11 @@ class OrderServiceImpl implements OrderService {
                 .toList());
     }
 
+    /**
+     * Updates an existing order.
+     * @param dto the order DTO with updated data
+     * @throws ServiceException if the order is not found or another error occurs
+     */
     @Override
     public void update(OrderDto dto) throws ServiceException {
         OrderEntity entity = checkIfOrderExist(dto.getOrderCode());
@@ -129,6 +169,11 @@ class OrderServiceImpl implements OrderService {
         repository.save(entity);
     }
 
+    /**
+     * Deletes an order by its code.
+     * @param code the order code to delete
+     * @throws ServiceException if the order is not found or another error occurs
+     */
     @Override
     public void deleteByCode(String code) throws ServiceException {
         try {
@@ -139,6 +184,10 @@ class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Cancels an order by its code.
+     * @param code the order code to cancel
+     */
     @Override
     public void cancel(String code) {
         OrderEntity entity = checkIfOrderExist(code);
@@ -147,6 +196,10 @@ class OrderServiceImpl implements OrderService {
         repository.save(entity);
     }
 
+    /**
+     * Marks an order as paid by its code.
+     * @param orderCode the order code to mark as paid
+     */
     @Override
     public void payOrder(String orderCode) {
         OrderEntity entity = repository.findByOrderCodeIgnoreCase(orderCode);
@@ -155,6 +208,12 @@ class OrderServiceImpl implements OrderService {
         repository.save(entity);
     }
 
+    /**
+     * Checks if an order exists by code, throws exception if not found.
+     * @param code the order code
+     * @return the matching OrderEntity
+     * @throws ServiceException if the order is not found
+     */
     private OrderEntity checkIfOrderExist(String code) throws ServiceException {
         OrderEntity entity = repository.findByOrderCodeIgnoreCase(code);
         if (isNull(entity))
@@ -162,6 +221,11 @@ class OrderServiceImpl implements OrderService {
         return entity;
     }
 
+    /**
+     * Checks if a user already has an open order, throws exception if so.
+     * @param email the user's email
+     * @throws ServiceException if an open order exists for the user
+     */
     private void checkOrderOpenByUser(String email) throws ServiceException {
         if (repository.findOrderByUserMailAndStatus(email, StatusOrderEnum.CREATED) != null)
             throw new ServiceException(ORDER_EXIST_FOR_USER_FOUND, email + "Can't create another list! Please wait.");

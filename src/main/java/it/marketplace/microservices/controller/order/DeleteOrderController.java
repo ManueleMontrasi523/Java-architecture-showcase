@@ -14,6 +14,10 @@ import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for deleting orders in the marketplace system.
+ * Provides an endpoint to delete an order by its code.
+ */
 @RestController
 @RequestMapping("/order")
 @Tag(name = "Order API", description = "Order management")
@@ -29,3 +33,4 @@ public class DeleteOrderController {
     }
 
 }
+

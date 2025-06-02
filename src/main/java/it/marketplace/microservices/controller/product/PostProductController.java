@@ -19,6 +19,10 @@ import java.util.Map;
 import static it.marketplace.microservices.config.mapper.ProductMapper.toDto;
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for creating products in the marketplace system.
+ * Provides endpoints to add a single product or multiple products.
+ */
 @RestController
 @RequestMapping("/product")
 @Tag(name = "Product API", description = "Product management")
@@ -35,12 +39,24 @@ public class PostProductController {
     @Autowired
     private ProductService service;
 
+    /**
+     * Adds a new product.
+     * @param resource the product resource to add
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the product cannot be added
+     */
     @PostMapping("/add")
     public ResponseEntity<Map<String, String>> save(@RequestBody ProductResource resource) throws ServiceException {
         service.save(toDto(resource));
         return ok().body(Map.of("message", "Product added!"));
     }
 
+    /**
+     * Adds multiple new products.
+     * @param resources the list of product resources to add
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the products cannot be added
+     */
     @PostMapping("/add-all")
     public ResponseEntity<Map<String, String>> saveAll(@RequestBody List<ProductResource> resources) throws ServiceException {
         List<ProductDto> dtos = resources.stream().map(ProductMapper::toDto).toList();

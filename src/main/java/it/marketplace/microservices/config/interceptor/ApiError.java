@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents an API error response for the marketplace system.
+ * Contains the HTTP status, error code, and error message to be returned to the client.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

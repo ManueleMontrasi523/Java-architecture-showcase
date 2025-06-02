@@ -23,6 +23,10 @@ import java.util.Map;
 import static it.marketplace.microservices.common.enums.StatusOrderEnum.FAILED;
 import static it.marketplace.microservices.common.enums.StatusOrderEnum.REJECTED;
 
+/**
+ * Service class for background job processing related to orders in the marketplace system.
+ * Handles order validation, product supply checks, updates, and notifies via RabbitMQ.
+ */
 @Service
 public class JobService {
 
@@ -37,6 +41,12 @@ public class JobService {
     @Autowired
     private ProductService productService;
 
+    /**
+     * Starts asynchronous processing for a given order code.
+     * Validates product supply, updates product and order status, and sends notifications.
+     *
+     * @param orderCode the code of the order to process
+     */
     @Async
     public void startProcessing(String orderCode) {
         OrderDto orderDto = orderService.findByCode(orderCode);

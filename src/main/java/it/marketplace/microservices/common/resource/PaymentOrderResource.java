@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Resource class representing a payment order in the marketplace system for API responses.
+ * Contains payment order details, status, debit, paid amount, and relevant dates.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

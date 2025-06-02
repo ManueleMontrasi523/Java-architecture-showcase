@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Resource class representing a user in the marketplace system for API responses.
+ * Contains user details such as name, email, address, status, role, and subscription date.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

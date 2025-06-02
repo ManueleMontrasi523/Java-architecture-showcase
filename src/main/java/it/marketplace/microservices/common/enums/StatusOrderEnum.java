@@ -2,6 +2,9 @@ package it.marketplace.microservices.common.enums;
 
 import lombok.Getter;
 
+/**
+ * Enum representing the possible statuses of an order in the marketplace system.
+ */
 @Getter
 public enum StatusOrderEnum {
     CANCELLED,

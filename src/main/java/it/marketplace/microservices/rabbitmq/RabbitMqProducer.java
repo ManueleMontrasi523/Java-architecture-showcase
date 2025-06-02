@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/**
+ * RabbitMQ producer component for sending order and payment messages in the marketplace system.
+ * Provides methods to send new order and pending payment messages to the appropriate queues.
+ */
 @Component
 @AllArgsConstructor
 public class RabbitMqProducer {
@@ -17,6 +21,10 @@ public class RabbitMqProducer {
     private static final Logger log = LoggerFactory.getLogger(OrderSchedulerCreated.class);
     private final RabbitTemplate rabbitTemplate;
 
+    /**
+     * Sends a message for a new order to the RabbitMQ exchange.
+     * @param message the order code message to send
+     */
     public void sendMessageNewOrder(String message) {
         log.info("Produce message for sendMessageNewOrder: {}", message);
         rabbitTemplate.convertAndSend(
@@ -26,6 +34,10 @@ public class RabbitMqProducer {
         );
     }
 
+    /**
+     * Sends a message for a pending payment to the RabbitMQ exchange.
+     * @param message the message map to send
+     */
     public void sendMessagePendingPayment(Map<String, ?> message) {
         log.info("Produce message for sendMessagePendingPayment: {}", message);
         rabbitTemplate.convertAndSend(
@@ -35,3 +47,4 @@ public class RabbitMqProducer {
         );
     }
 }
+

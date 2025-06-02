@@ -23,6 +23,10 @@ import java.util.List;
 import static it.marketplace.microservices.common.enums.StatusOrderEnum.PENDING_PAYMENT;
 import static java.util.Objects.nonNull;
 
+/**
+ * Service implementation for managing payment orders in the marketplace system.
+ * Handles retrieval, payment, and installment creation for payment orders.
+ */
 @Service
 class PaymentOrderServiceImpl implements PaymentOrderService {
 
@@ -36,6 +40,11 @@ class PaymentOrderServiceImpl implements PaymentOrderService {
     @Autowired
     private OrderService orderService;
 
+    /**
+     * Retrieves all payment orders for a given user email.
+     * @param email the user email
+     * @return a list of PaymentOrderDto
+     */
     @Override
     public List<PaymentOrderDto> findOrderByEmail(String email) {
         List<PaymentOrderDto> dtos = new ArrayList<>();
@@ -48,11 +57,20 @@ class PaymentOrderServiceImpl implements PaymentOrderService {
         return dtos;
     }
 
+    /**
+     * Retrieves all payment orders in the system.
+     * @return a list of PaymentOrderDto
+     */
     @Override
     public List<PaymentOrderDto> findAll() {
         return repository.findAll().stream().map(PaymentOrderMapper::toDto).toList();
     }
 
+    /**
+     * Pays a payment order, updating its status and creating installments if needed.
+     * @param orderCode the order code to pay
+     * @param isInstallments whether the payment is in installments
+     */
     @Override
     public void payOrder(String orderCode, Boolean isInstallments) {
         log.info("Paid order {} with installments {}", orderCode, isInstallments);
@@ -68,6 +86,11 @@ class PaymentOrderServiceImpl implements PaymentOrderService {
         repository.save(entity);
     }
 
+    /**
+     * Creates 12 payment installments for an order, dividing the debit equally.
+     * @param orderCode the order code
+     * @param debit the total debit to divide
+     */
     private void payWithInstallments(String orderCode, Double debit) {
         List<PaymentInstallmentsEntity> payEntities = new ArrayList<>();
         double miniDebit = debit / 12;

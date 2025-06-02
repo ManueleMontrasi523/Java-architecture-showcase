@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Data Transfer Object (DTO) representing a payment order in the marketplace system.
+ * Contains information about the payment order, including status, debit, paid amount, and relevant dates.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

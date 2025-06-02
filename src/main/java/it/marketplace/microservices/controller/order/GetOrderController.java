@@ -19,6 +19,10 @@ import java.util.List;
 import static it.marketplace.microservices.config.mapper.OrderMapper.toResource;
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for retrieving orders in the marketplace system.
+ * Provides endpoints to get orders by code or retrieve all orders.
+ */
 @RestController
 @RequestMapping("/order")
 @Tag(name = "Order API", description = "Order management")
@@ -27,11 +31,22 @@ public class GetOrderController {
     @Autowired
     private OrderService service;
 
+    /**
+     * Retrieves an order by its code.
+     * @param code the order code to retrieve
+     * @return a response entity containing the order resource
+     * @throws ServiceException if the order cannot be found
+     */
     @GetMapping("/get-by-code")
     public ResponseEntity<OrderResource> find(@RequestParam(value = "orderCode") String code) throws ServiceException {
         return ok().body(toResource(service.findByCode(code)));
     }
 
+    /**
+     * Retrieves all orders.
+     * @return a response entity containing a list of order resources
+     * @throws ServiceException if the orders cannot be retrieved
+     */
     @GetMapping("/get-all")
     public ResponseEntity<List<OrderResource>> findAll() throws ServiceException {
         List<OrderDto> dtos = service.findAll();

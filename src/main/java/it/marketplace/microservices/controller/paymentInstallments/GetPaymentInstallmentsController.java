@@ -18,6 +18,10 @@ import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for retrieving payment installments in the marketplace system.
+ * Provides an endpoint to get all payment installments by order code.
+ */
 @RestController
 @RequestMapping("/payment-order")
 @Tag(name = "Payment Order API", description = "Payment Order management")
@@ -26,6 +30,12 @@ public class GetPaymentInstallmentsController {
     @Autowired
     private PaymentInstallmentsService service;
 
+    /**
+     * Retrieves all payment installments for a given order code.
+     * @param orderCode the order code to retrieve installments for
+     * @return a response entity containing a list of payment installment resources
+     * @throws ServiceException if the installments cannot be retrieved
+     */
     @GetMapping("/get-by-code")
     public ResponseEntity<List<PaymentInstallmentsResource>> find(@RequestParam(value = "orderCode") String orderCode) throws ServiceException {
         List<PaymentInstallmentsDto> dtos = service.findAllByCode(orderCode);

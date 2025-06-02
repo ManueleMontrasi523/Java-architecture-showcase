@@ -18,6 +18,10 @@ import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for retrieving payment orders in the marketplace system.
+ * Provides endpoints to get payment orders by user email or retrieve all payment orders.
+ */
 @RestController
 @RequestMapping("/payment-order")
 @Tag(name = "Payment Order API", description = "Payment Order management")
@@ -26,6 +30,12 @@ public class GetPaymentOrderController {
     @Autowired
     private PaymentOrderService service;
 
+    /**
+     * Retrieves all payment orders for a given user email.
+     * @param email the user email to retrieve payment orders for
+     * @return a response entity containing a list of payment order resources
+     * @throws ServiceException if the payment orders cannot be retrieved
+     */
     @GetMapping("/get-by-user")
     public ResponseEntity<List<PaymentOrderResource>> find(@RequestParam(value = "email") String email) throws ServiceException {
         List<PaymentOrderDto> dtos = service.findOrderByEmail(email);
@@ -37,6 +47,11 @@ public class GetPaymentOrderController {
         return ok().body(resources);
     }
 
+    /**
+     * Retrieves all payment orders.
+     * @return a response entity containing a list of payment order resources
+     * @throws ServiceException if the payment orders cannot be retrieved
+     */
     @GetMapping("/get-all")
     public ResponseEntity<List<PaymentOrderResource>> findAll() throws ServiceException {
         List<PaymentOrderDto> dtos = service.findAll();

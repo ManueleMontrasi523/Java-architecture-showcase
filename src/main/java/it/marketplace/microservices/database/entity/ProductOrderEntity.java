@@ -9,6 +9,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Entity representing a product order in the marketplace system.
+ * Contains details about the ordered product, quantity, pricing, and relevant dates.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

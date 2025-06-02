@@ -22,6 +22,10 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * Mapper class for converting between Order DTOs, resources, and entities in the marketplace system.
+ * Uses Jackson ObjectMapper for object conversion and handles nested user and product order mappings.
+ */
 public class OrderMapper {
 
     private static final ObjectMapper mapper = new ObjectMapper()
@@ -30,6 +34,11 @@ public class OrderMapper {
             .registerModule(new Hibernate6Module())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
+    /**
+     * Converts an OrderDto to an OrderResource, including nested user and product orders.
+     * @param dto the OrderDto to convert
+     * @return the corresponding OrderResource
+     */
     public static OrderResource toResource(OrderDto dto) {
         if (dto == null) return null;
         OrderResource resource = mapper.convertValue(dto, OrderResource.class);
@@ -47,6 +56,11 @@ public class OrderMapper {
         return resource;
     }
 
+    /**
+     * Converts an OrderResource to an OrderDto, including nested user and product orders.
+     * @param resource the OrderResource to convert
+     * @return the corresponding OrderDto
+     */
     public static OrderDto toDto(OrderResource resource) {
         if (resource == null) return null;
         OrderDto dto = mapper.convertValue(resource, OrderDto.class);
@@ -64,6 +78,11 @@ public class OrderMapper {
         return dto;
     }
 
+    /**
+     * Converts an OrderEntity to an OrderDto, including nested user and product orders.
+     * @param entity the OrderEntity to convert
+     * @return the corresponding OrderDto
+     */
     public static OrderDto toDto(OrderEntity entity) {
         if (entity == null) return null;
         OrderDto dto = mapper.convertValue(entity, OrderDto.class);
@@ -82,6 +101,11 @@ public class OrderMapper {
         return dto;
     }
 
+    /**
+     * Converts an OrderDto to an OrderEntity, including nested user and product orders.
+     * @param dto the OrderDto to convert
+     * @return the corresponding OrderEntity
+     */
     public static OrderEntity toEntity(OrderDto dto) {
         if (dto == null) return null;
         OrderEntity entity = mapper.convertValue(dto, OrderEntity.class);

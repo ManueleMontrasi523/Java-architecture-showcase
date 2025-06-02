@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Data Transfer Object (DTO) representing a user in the marketplace system.
+ * Contains user details such as name, email, address, status, role, and subscription date.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

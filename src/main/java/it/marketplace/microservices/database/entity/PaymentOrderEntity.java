@@ -10,8 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/*
- * THIS TABLE WILL BE USED TO SIMULATE CORRECTLY TERMINATED PAYMENTS
+/**
+ * Entity representing a payment order in the marketplace system.
+ * Contains details for simulating completed payments, including order code, status, debit, and relevant dates.
  */
 @Data
 @AllArgsConstructor

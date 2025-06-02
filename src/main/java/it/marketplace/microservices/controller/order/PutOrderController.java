@@ -14,6 +14,10 @@ import java.util.Map;
 import static it.marketplace.microservices.config.mapper.OrderMapper.toDto;
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for updating orders in the marketplace system.
+ * Provides endpoints to update or cancel an order by its code.
+ */
 @RestController
 @RequestMapping("/order")
 @Tag(name = "Order API", description = "Order management")
@@ -22,12 +26,24 @@ public class PutOrderController {
     @Autowired
     private OrderService service;
 
+    /**
+     * Updates an existing order.
+     * @param resource the order resource to update
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the order cannot be updated
+     */
     @PutMapping("/update")
     public ResponseEntity<Map<String, String>> update(@Valid @RequestBody OrderResource resource) throws ServiceException {
         service.update(toDto(resource));
         return ok().body(Map.of("message", "Order Updated!"));
     }
 
+    /**
+     * Cancels an order by its code.
+     * @param code the order code to cancel
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the order cannot be cancelled
+     */
     @PutMapping("/cancel")
     public ResponseEntity<Map<String, String>> cancel(@RequestParam("orderCode") String code) throws ServiceException {
         service.cancel(code);

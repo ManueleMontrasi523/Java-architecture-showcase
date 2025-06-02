@@ -11,6 +11,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Entity representing a user in the marketplace system.
+ * Contains user details such as name, lastname, email, address, role, status, and relevant dates.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

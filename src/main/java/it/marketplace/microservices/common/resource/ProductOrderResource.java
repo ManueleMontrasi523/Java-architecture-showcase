@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Resource class representing a product order in the marketplace system for API responses.
+ * Contains details about the ordered product, quantity, pricing, and relevant dates.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Resource class representing a product in the marketplace system for API responses.
+ * Contains product details such as code, name, description, price, supply, category, and creation date.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

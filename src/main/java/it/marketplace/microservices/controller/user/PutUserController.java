@@ -16,6 +16,10 @@ import java.util.Map;
 import static it.marketplace.microservices.config.mapper.UserMapper.toDto;
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for updating users in the marketplace system.
+ * Provides an endpoint to update a user.
+ */
 @RestController
 @RequestMapping("/user")
 @Tag(name = "User API", description = "User management")
@@ -32,6 +36,12 @@ public class PutUserController {
     @Autowired
     private UserService service;
 
+    /**
+     * Updates an existing user.
+     * @param userResource the user resource to update
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the user cannot be updated
+     */
     @PutMapping("/update")
     public ResponseEntity<Map<String, String>> update(@Valid @RequestBody UserResource userResource) throws ServiceException {
         service.update(toDto(userResource));

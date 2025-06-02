@@ -14,6 +14,10 @@ import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for deleting products in the marketplace system.
+ * Provides an endpoint to delete a product by its code.
+ */
 @RestController
 @RequestMapping("/product")
 @Tag(name = "Product API", description = "Product management")
@@ -22,6 +26,12 @@ public class DeleteProductController {
     @Autowired
     private ProductService service;
 
+    /**
+     * Deletes a product by its code.
+     * @param code the product code to delete
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the product cannot be deleted
+     */
     @DeleteMapping("/delete")
     public ResponseEntity<Map<String, String>> delete(@RequestParam("productCode") String code) throws ServiceException {
         service.deleteByCode(code);

@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Data Transfer Object (DTO) representing a product in the marketplace system.
+ * Contains product details such as code, name, description, price, supply, category, and relevant dates.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

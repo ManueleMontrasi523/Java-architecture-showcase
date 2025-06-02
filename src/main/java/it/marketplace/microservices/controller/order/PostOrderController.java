@@ -19,6 +19,10 @@ import java.util.Map;
 import static it.marketplace.microservices.config.mapper.OrderMapper.toDto;
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for creating orders in the marketplace system.
+ * Provides endpoints to add a single order or multiple orders.
+ */
 @RestController
 @RequestMapping("/order")
 @Tag(name = "Order API", description = "Order management")
@@ -27,12 +31,24 @@ public class PostOrderController {
     @Autowired
     private OrderService service;
 
+    /**
+     * Adds a new order.
+     * @param resource the order resource to add
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the order cannot be added
+     */
     @PostMapping("/add")
     public ResponseEntity<Map<String, String>> save(@RequestBody OrderResource resource) throws ServiceException {
         service.save(toDto(resource));
         return ok().body(Map.of("message", "Order added!"));
     }
 
+    /**
+     * Adds multiple new orders.
+     * @param resources the list of order resources to add
+     * @return a response entity with a confirmation message
+     * @throws ServiceException if the orders cannot be added
+     */
     @PostMapping("/add-all")
     public ResponseEntity<?> saveAll(@RequestBody List<OrderResource> resources) throws ServiceException {
         List<OrderDto> dtos = resources.stream().map(OrderMapper::toDto).toList();

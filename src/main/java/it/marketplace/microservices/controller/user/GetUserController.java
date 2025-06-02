@@ -20,6 +20,10 @@ import java.util.List;
 import static it.marketplace.microservices.config.mapper.UserMapper.toResource;
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * REST controller for retrieving users in the marketplace system.
+ * Provides endpoints to get users by email or retrieve all users by status.
+ */
 @RestController
 @RequestMapping("/user")
 @Tag(name = "User API", description = "User management")
@@ -28,11 +32,23 @@ public class GetUserController {
     @Autowired
     private UserService service;
 
+    /**
+     * Retrieves a user by email.
+     * @param email the email of the user to retrieve
+     * @return a response entity containing the user resource
+     * @throws ServiceException if the user cannot be found
+     */
     @GetMapping("/get-by-email")
     public ResponseEntity<UserResource> find(@RequestParam(value = "email") String email) throws ServiceException {
         return ok().body(toResource(service.findByEmail(email)));
     }
 
+    /**
+     * Retrieves all users by status.
+     * @param status the status to filter users
+     * @return a response entity containing a list of user resources
+     * @throws ServiceException if the users cannot be retrieved
+     */
     @GetMapping("/get-all")
     public ResponseEntity<List<UserResource>> findAll(@RequestParam(value = "status") StatusUserEnum status) throws ServiceException {
         List<UserDto> dtos = service.findAll(status);

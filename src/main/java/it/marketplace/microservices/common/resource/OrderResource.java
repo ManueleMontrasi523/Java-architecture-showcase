@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Resource class representing an order in the marketplace system for API responses.
+ * Contains order details, user information, product list, status, and order date.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

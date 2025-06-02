@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
 
 import static it.marketplace.microservices.config.exception.ServiceException.ErrorCode.PAYMENT_RATE_EXCEED;
 
+/**
+ * Service implementation for managing payment installments in the marketplace system.
+ * Handles retrieval and payment of order installments, including status updates and validation.
+ */
 @Service
 class PaymentInstallmentsServiceImpl implements PaymentInstallmentsService {
 
@@ -29,11 +33,22 @@ class PaymentInstallmentsServiceImpl implements PaymentInstallmentsService {
     @Autowired
     private PaymentOrderService service;
 
+    /**
+     * Retrieves all payment installments for a given order code.
+     * @param orderCode the order code
+     * @return a list of PaymentInstallmentsDto
+     */
     @Override
     public List<PaymentInstallmentsDto> findAllByCode(String orderCode) {
         return repository.findByOrderCode(orderCode).stream().map(PaymentInstallmentsMapper::toDto).toList();
     }
 
+    /**
+     * Pays a specified number of installments for an order, updating their status and the payment order if all are paid.
+     * @param orderCode the order code
+     * @param number the number of installments to pay
+     * @throws ServiceException if the number exceeds available installments
+     */
     @Override
     public void payInstallments(String orderCode, int number) {
         List<PaymentInstallmentsEntity> entities = repository.findByOrderCodeAndStatus(orderCode, StatusOrderEnum.PENDING_PAYMENT);
