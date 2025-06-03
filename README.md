@@ -1,6 +1,6 @@
-# Marketplace Microservices Architecture Showcase
+# Marketplace Hexagonal Architecture Showcase
 
-This project is a comprehensive showcase of a microservices-based marketplace application, developed with a focus on modularity, scalability, and real-world business logic. It demonstrates how to manage shopping orders, products, and users, leveraging asynchronous processing and message queues for robust workflow orchestration.
+This project is a comprehensive showcase of a microservices-based marketplace application, developed with a focus on modularity, scalability, and real-world business logic. It is built following the principles of **hexagonal architecture (architettura esagonale)**, ensuring a clear separation between the core business logic and external systems. The application demonstrates how to manage shopping orders, products, and users, leveraging asynchronous processing and message queues for robust workflow orchestration.
 
 ### Overview
 
@@ -36,15 +36,26 @@ All order state transitions and business logic are handled asynchronously using 
 
 ## Architecture & Structure
 
-- `controller/` — REST endpoints and data validation
-- `service/` — Business logic and application rules
-- `repository/` — Database access layer
+This project is structured according to the **hexagonal architecture (Ports & Adapters)** pattern:
+
+- `core/` — Contains the domain logic, use cases, and interfaces (ports)
+- `adapter/` — Contains the adapters for external systems (REST controllers, database, messaging, etc.)
+    - `input/` — Adapters for incoming requests (e.g., REST, messaging receivers)
+    - `output/` — Adapters for outgoing interactions (e.g., database, messaging producers)
+- `application/` — Application configuration, startup, and integration
+- `batch/` — Batch processing components (if any)
+- `data/` — Sample data or scripts
+
+Other common packages:
+- `controller/` — REST endpoints and data validation (as adapters)
+- `service/` — Business logic and application rules (in the core)
+- `repository/` — Database access layer (as output adapters)
 - `model/` — JPA entity definitions
 - `dto/` — Data Transfer Objects (request/response models)
 - `exception/` — Custom error handling
 - `validation/` — Custom validation handling
 
-The project is designed with a clear separation of concerns, following best practices for microservices and clean architecture. Error handling is centralized, and validation is enforced both at the backend and via custom logic.
+The project is designed with a clear separation of concerns, following best practices for hexagonal architecture and microservices. Error handling is centralized, and validation is enforced both at the backend and via custom logic.
 
 ## Practical Usage
 
@@ -61,6 +72,7 @@ You can download RabbitMQ from the official website: [https://www.rabbitmq.com/d
 In the `.external-service-api` folder, you will find example request bodies for use with the "add-all" endpoints in Swagger. These can be used to quickly populate the system with sample data.
 
 ## Theoretical Highlights
+- **Hexagonal Architecture**: The codebase is organized around the hexagonal (ports & adapters) pattern, ensuring a clean separation between business logic and external systems.
 - **Asynchronous Processing**: All critical workflows (such as order validation and payment processing) are handled asynchronously via message queues, ensuring high throughput and resilience.
 - **Microservices Architecture**: The codebase is modular, with clear boundaries between components, making it easy to extend or integrate with other services.
 - **Spring Validation**: Extensive use of Spring’s validation framework ensures data integrity and robust error feedback.
@@ -75,4 +87,4 @@ In the `.external-service-api` folder, you will find example request bodies for 
 
 ---
 
-This project is a practical demonstration of building a modern, event-driven, microservices-based marketplace with Spring Boot and related technologies. For any questions or contributions, please refer to the code or open an issue.
+This project is a practical demonstration of building a modern, event-driven, microservices-based marketplace with **hexagonal architecture** using Spring Boot and related technologies. For any questions or contributions, please refer to the code or open an issue.
