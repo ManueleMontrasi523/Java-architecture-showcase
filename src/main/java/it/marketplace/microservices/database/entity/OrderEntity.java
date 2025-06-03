@@ -32,7 +32,7 @@ public class OrderEntity implements Serializable {
     private String orderCode;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FK_USER", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "FK_USERS", referencedColumnName = "ID", nullable = false)
     private UserEntity user;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

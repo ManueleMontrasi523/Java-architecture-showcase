@@ -24,7 +24,7 @@ import static it.marketplace.microservices.config.exception.ServiceException.Err
  * Handles retrieval and payment of order installments, including status updates and validation.
  */
 @Service
-class PaymentInstallmentsServiceImpl implements PaymentInstallmentsService {
+public class PaymentInstallmentsServiceImpl implements PaymentInstallmentsService {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentInstallmentsServiceImpl.class);
 

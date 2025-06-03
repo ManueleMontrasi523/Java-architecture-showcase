@@ -30,7 +30,7 @@ import static java.util.Objects.nonNull;
  * Handles user creation, update, deletion, status changes, and retrieval operations.
  */
 @Service
-class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 

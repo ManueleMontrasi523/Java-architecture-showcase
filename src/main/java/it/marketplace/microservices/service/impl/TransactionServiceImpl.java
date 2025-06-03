@@ -27,7 +27,7 @@ import static java.util.Objects.nonNull;
  * Handles order processing, payment processing, and state alignment for orders and payments.
  */
 @Service
-class TransactionServiceImpl implements TransactionService {
+public class TransactionServiceImpl implements TransactionService {
 
     private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
 

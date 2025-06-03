@@ -34,7 +34,7 @@ import static java.util.Objects.nonNull;
  * Handles product creation, update, deletion, inventory management, and supply checks.
  */
 @Service
-class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 

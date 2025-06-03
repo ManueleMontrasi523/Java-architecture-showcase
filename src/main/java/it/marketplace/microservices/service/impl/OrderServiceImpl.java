@@ -33,7 +33,7 @@ import static java.util.Objects.isNull;
  * Handles order creation, update, deletion, payment, and related business logic.
  */
 @Service
-class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 

@@ -28,7 +28,7 @@ import static java.util.Objects.nonNull;
  * Handles retrieval, payment, and installment creation for payment orders.
  */
 @Service
-class PaymentOrderServiceImpl implements PaymentOrderService {
+public class PaymentOrderServiceImpl implements PaymentOrderService {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentOrderServiceImpl.class);
 
