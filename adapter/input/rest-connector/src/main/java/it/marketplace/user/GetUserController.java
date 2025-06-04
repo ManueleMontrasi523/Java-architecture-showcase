@@ -56,7 +56,7 @@ public class GetUserController {
      * @throws ServiceException if the users cannot be retrieved
      */
     @GetMapping("/get-all")
-    public ResponseEntity<List<UserResource>> findAll(@RequestParam(value = "status") StatusUserEnum status) throws ServiceException {
+    public ResponseEntity<List<UserResource>> findAll(@RequestParam(value = "status", defaultValue = "") StatusUserEnum status) throws ServiceException {
         List<UserDto> dtos = service.findAll(status);
 
         List<UserResource> resources = new ArrayList<>(dtos.stream()

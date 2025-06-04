@@ -21,15 +21,15 @@
         </dependency>
         <dependency>
             <groupId>it.marketplace</groupId>
+            <artifactId>marketplace-hexagonal-architecture-batch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.marketplace</groupId>
             <artifactId>marketplace-hexagonal-architecture-adapter-output-database</artifactId>
         </dependency>
         <dependency>
             <groupId>it.marketplace</groupId>
             <artifactId>marketplace-hexagonal-architecture-adapter-input-rest-connector</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>it.marketplace</groupId>
-            <artifactId>marketplace-hexagonal-architecture-batch</artifactId>
         </dependency>
         <dependency>
             <groupId>it.marketplace</groupId>

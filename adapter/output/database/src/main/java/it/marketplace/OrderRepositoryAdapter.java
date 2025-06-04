@@ -24,11 +24,21 @@ public class OrderRepositoryAdapter implements OrderRepository {
     @Autowired
     private OrderJpaRepository repository;
 
+    /**
+     * Saves an order in the database.
+     *
+     * @param dto the order to save
+     */
     @Override
     public void save(OrderDto dto) {
         repository.save(toEntity(dto));
     }
 
+    /**
+     * Saves a list of orders in the database.
+     *
+     * @param dtos the list of orders to save
+     */
     @Override
     public void saveAll(List<OrderDto> dtos) {
         List<OrderEntity> entities = dtos.stream()
@@ -37,6 +47,11 @@ public class OrderRepositoryAdapter implements OrderRepository {
         repository.saveAll(entities);
     }
 
+    /**
+     * Returns all orders present in the database.
+     *
+     * @return list of orders
+     */
     @Override
     public List<OrderDto> findAll() {
         return repository.findAll().stream()
@@ -97,8 +112,14 @@ public class OrderRepositoryAdapter implements OrderRepository {
                 .toList();
     }
 
+    /**
+     * Deletes an order by its id.
+     *
+     * @param id the id of the order to delete
+     */
     @Override
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }
+

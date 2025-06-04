@@ -10,9 +10,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * Main entry point for the Marketplace Microservices Spring Boot application.
  * Configures entity scanning, JPA repositories, and enables scheduling.
  */
-@SpringBootApplication(scanBasePackages = "it.marketplace.microservices")
-@EntityScan(basePackages = "it.marketplace.database.entity")
-@EnableJpaRepositories(basePackages = "it.marketplace.database.repository")
+@SpringBootApplication(scanBasePackages = "it.marketplace")
+@EntityScan(basePackages = "it.marketplace.entity")
+@EnableJpaRepositories(basePackages = "it.marketplace.repository")
 @EnableScheduling
 public class StartApplication {
 
